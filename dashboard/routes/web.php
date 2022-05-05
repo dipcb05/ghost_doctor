@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\DataController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('dashboard');
 });
+Route::get('/dashboard', [DataController::class, 'index'])->name('dashboard');
+Route::get('/alldatas', [DataController::class, 'SensorData'])->name('data');

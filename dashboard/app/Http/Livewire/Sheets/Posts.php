@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Livewire\Sheets;
-
 use Livewire\Component;
 use Revolution\Google\Sheets\Facades\Sheets;
 
