@@ -1,6 +1,7 @@
-@php($hum = data_get($this->posts[sizeof($this->posts)-1], 'humidity'))
-@php($temp = data_get($this->posts[sizeof($this->posts)-1], 'temparature'))
-@php($datetime = data_get($this->posts[sizeof($this->posts)-1], 'datetime'))
+<div wire:poll.10000ms="$refresh">
+@php($hum = data_get($this->posts[0], 'humidity'))
+@php($temp = data_get($this->posts[0], 'temparature'))
+@php($datetime = data_get($this->posts[0], 'datetime'))
 
 <div class = "card">
  <div class = "card-header">Current Condition of 1st Patient</div>
@@ -32,5 +33,6 @@
         </p>
     </div>
   </div>
-  <div class = "card-footer">Last Collection Time: {{ $datetime }}</div>
+  <div class = "card-footer">Last Checked Time: {{ $datetime }} | Current Time: {{ now() }}</div>
+</div>
 </div>

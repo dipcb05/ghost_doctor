@@ -6,23 +6,20 @@ use Revolution\Google\Sheets\Facades\Sheets;
 
 class Posts extends Component
 {
-    protected $listeners = ['postAdded' => 'render'];
-
+    protected $listeners = ['postAdded' => 'render', 'getPostsProperty'];
+    //, 'new' => '$refresh'
     public function getPostsProperty()
     {        
         $sheets = Sheets::spreadsheet(config('sheets.post_spreadsheet_id'))
                         ->sheetById(config('sheets.post_sheet_id'))
                         ->all();
-
-        $posts = array();
-        foreach ($sheets AS $data) {
-            $posts[] = array(   
-                'datetime'    => $data[0],   
-                'humidity'    => $data[1],
-                'temparature' => $data[2],
-                'LDR' => $data[3],
-                );
-        }
+        $data = $sheets[sizeof($sheets) - 1];    
+        $posts[] = array(   
+            'datetime'    => $data[0],   
+            'humidity'    => $data[1],
+            'temparature' => $data[2],
+            );
+        
         return $posts;
     }
 

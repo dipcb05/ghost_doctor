@@ -23,7 +23,6 @@ class DataController extends Controller
                 'datetime'    => $data[0],   
                 'humidity'    => $data[1],
                 'temparature' => $data[2],
-                'LDR' => $data[3],
                 );
         }
         return view('layouts.data', ['posts' => $posts]);
