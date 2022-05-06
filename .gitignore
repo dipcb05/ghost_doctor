@@ -1,0 +1,13 @@
+/dashboard/node_modules
+/dashboard/public/storage
+/dashboard/storage/*.key
+/dashboard/storage/credentials.json
+/dashboard/vendor
+/dashboard/.env
+/dashboard/.env.backup
+/dashboard/.phpunit.result.cache
+/dashboard/Homestead.json
+/dashboard/Homestead.yaml
+/dashboard/npm-debug.log
+/dashboard/yarn-error.log
+/esp32-parts/credentials.h
