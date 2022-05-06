@@ -1,5 +1,6 @@
 /dashboard/node_modules
 /dashboard/public/storage
+/dashboard/public/hot
 /dashboard/storage/*.key
 /dashboard/storage/credentials.json
 /dashboard/vendor
@@ -10,4 +11,5 @@
 /dashboard/Homestead.yaml
 /dashboard/npm-debug.log
 /dashboard/yarn-error.log
+/dashboard/storage/sheets-service-account.json
 /esp32-parts/credentials.h
