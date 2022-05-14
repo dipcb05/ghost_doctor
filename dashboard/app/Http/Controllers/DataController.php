@@ -27,4 +27,8 @@ class DataController extends Controller
         }
         return view('layouts.data', ['posts' => $posts]);
     }
+    public function Control()
+    {
+        return view('controls');
+    }
 }
