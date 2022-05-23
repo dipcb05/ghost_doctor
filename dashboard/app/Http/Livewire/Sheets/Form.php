@@ -11,14 +11,13 @@ class Form extends Component
 
     public string $message = '';
 
-    protected $rules = [
-        'name'    => 'required',
-        'message' => 'required',
-    ];
+    // protected $rules = [
+    //     'name'    => 'required',
+    //     'message' => 'required',
+    // ];
 
     public function post()
     {
-        $this->validate();
 
         $append = [
             $this->name,

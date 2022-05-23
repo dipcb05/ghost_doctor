@@ -5,8 +5,9 @@
 #include "credentials.h"
 #include <Wire.h>
 #define DHTPIN    23
-#define BUTTON_PIN 2
 #define DHTTYPE DHT11
+#define SOUND_SPEED 0.034
+#define CM_TO_INCH 0.393701
 
 //all objects
 
@@ -26,14 +27,19 @@ int value1, value2, value3;
 int motor1Pin1 = 27; 
 int motor1Pin2 = 26; 
 int enable1Pin = 14; 
-const int freq = 100000;
+const int freq = 3000;
 const int pwmChannel = 0;
 const int resolution = 8;
-int dutyCycle = 50;
+int dutyCycle = 200;
 //drawer
 int pos = 0;
 int lastState = LOW; 
 int currentState;
+int echo = 2;
+int trigger = 4;
+long duration;
+float distanceCm;
+float distanceInch;
 
 void setup() {
 
@@ -44,15 +50,14 @@ void setup() {
   pinMode(enable1Pin, OUTPUT);
   ledcSetup(pwmChannel, freq, resolution);
   ledcAttachPin(enable1Pin, pwmChannel);
-  
-  //pin not available = 2,13,14,15,23,26,27
-  
+  pinMode(trigger, OUTPUT);
+  pinMode(echo, INPUT);
+
   //dht
   dht.begin();
   //drawer servo
   servo1.attach(13);  // servo1
   servo2.attach(15); //servo2
-  pinMode(BUTTON_PIN, INPUT_PULLUP); //closing signal
 
   
   //wifi
@@ -91,5 +96,22 @@ void loop() {
   }
   Serial.printf("fan switch: %d, fan speed: %d, drawer1: %d, drawer2: %d\n", fan_switch, fan_speed, drawer_switch1, drawer_switch2);
   fan_run(fan_switch, fan_speed);
-  drawer_move(drawer_switch1, drawer_switch2);
+  int a = drawer_move(drawer_switch1, drawer_switch2);
+  
+  if(a == 1){
+      delay(10000);
+      digitalWrite(trigger, LOW);
+      delayMicroseconds(2);
+      digitalWrite(trigger, HIGH);
+      delayMicroseconds(10);
+      digitalWrite(trigger, LOW);
+      duration = pulseIn(echo, HIGH);
+      distanceCm = duration * SOUND_SPEED/2;
+      if(distanceCm => 3){
+       for (pos = 180; pos >= 0; pos -= 1) { 
+        servo1.write(pos);             
+        delay(15);                     
+       }
+      }
+  }
 }

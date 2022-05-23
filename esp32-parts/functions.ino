@@ -52,27 +52,21 @@ void fan_run(int fan_switch, int fan_speed){
 }
 
 
-void drawer_move(int drawer_switch1, int drawer_switch2)
+int drawer_move(int drawer_switch1, int drawer_switch2)
 {
   if(drawer_switch1 == 1){
      for (pos = 0; pos <= 180; pos += 1) { 
       servo1.write(pos);
-      delay(15);
+      delay(20);
      }
-     for (pos = 180; pos >= 0; pos -= 1) { 
-      servo1.write(pos);             
-      delay(15);                     
-     }
+    return 1;
   }
-    
+   
   if(drawer_switch2 == 1){
      for (pos = 0; pos <= 180; pos += 1) { 
       servo2.write(pos);
       delay(15);
      }
-     for (pos = 180; pos >= 0; pos -= 1) { 
-      servo2.write(pos);             
-      delay(15);                     
-     }
   }
+  else return 0;
 }

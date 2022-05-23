@@ -1,8 +1,14 @@
 <div>
+
     <div class="mt-3">
         <x-label for="name" :value="__('Name')"/>
+        <x-input id="name" 
+                 class="block mt-1 w-full" 
+                 type="checkbox" 
+                 name="name" 
+                 wire:model="name" autofocus/>
+                 <span class="slider round"></span>
 
-        <x-input id="name" class="block mt-1 w-full" type="text" name="name" wire:model="name" autofocus/>
     </div>
 
     <div class="mt-3">

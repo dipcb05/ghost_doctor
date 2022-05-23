@@ -19,3 +19,4 @@ Route::get('/', function () {
 Route::get('/dashboard', [DataController::class, 'index'])->name('dashboard');
 Route::get('/alldatas', [DataController::class, 'SensorData'])->name('data');
 Route::get('/control', [DataController::class, 'Control'])->name('control');
+Route::get('/changeStatus', [DataController::class, 'changeStatus']);
