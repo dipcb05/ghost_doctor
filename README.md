@@ -7,6 +7,6 @@ Electrical Components:
 Raspberry pi, ESP32, DHT11, MQ2, Pulse Sensor.
 
 Software:
-Arduino, Laravel. 
+Arduino(communicating the hardware), Laravel(web dashboard), python(human & object detection). 
 
 Research is going on. This project is Under development.
