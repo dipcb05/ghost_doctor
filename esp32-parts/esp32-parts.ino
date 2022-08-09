@@ -1,45 +1,4 @@
-#include <WiFi.h>
-#include <HTTPClient.h>
-#include "DHT.h"
-#include <Servo.h>
-#include "credentials.h"
-#include <Wire.h>
-#define DHTPIN    23
-#define DHTTYPE DHT11
-#define SOUND_SPEED 0.034
-#define CM_TO_INCH 0.393701
-
-//all objects
-
-//dht
-DHT dht(DHTPIN, DHTTYPE);
-//drawer servo
-Servo servo1;
-Servo servo2;
-//wifi
-WiFiClientSecure client;
-
-//all variables
-
-//sensor data
-int value1, value2, value3;
-//fan
-int motor1Pin1 = 27; 
-int motor1Pin2 = 26; 
-int enable1Pin = 14; 
-const int freq = 3000;
-const int pwmChannel = 0;
-const int resolution = 8;
-int dutyCycle = 200;
-//drawer
-int pos = 0;
-int lastState = LOW; 
-int currentState;
-int echo = 2;
-int trigger = 4;
-long duration;
-float distanceCm;
-float distanceInch;
+#include "headers.h"
 
 void setup() {
 
@@ -52,30 +11,24 @@ void setup() {
   ledcAttachPin(enable1Pin, pwmChannel);
   pinMode(trigger, OUTPUT);
   pinMode(echo, INPUT);
-
-  //dht
+  pinMode(SENSOR_PIN, INPUT);
+  
+  //temp sensor
   dht.begin();
-  //drawer servo
+  
+  //drawer
   servo1.attach(13);  // servo1
   servo2.attach(15); //servo2
 
-  
-  //wifi
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
-  Serial.print("Wifi Connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print('.');
-  }
-
-  Serial.println("Wifi Connected !!!");  
+  connect_wifi();
 }
 
 void loop() {
   value1 = dht.readHumidity();
   value2 = dht.readTemperature();
+  value3 = decibel_Value();
   sensor_data_send();
+
   String input, input2, val[10];
   input = get_data();
   input2 = input;
